@@ -6,104 +6,44 @@
  */
 
 #include<iostream>
-#include<string.h>
-#include<cmath>
-#include<climits>
+#include<vector>
 using namespace std;
-int almacen[9];
-
-int MaxArraySum(int arr[],int n)
-{
-	if(n==1)
-		return arr[0];
-
-
-	int mayor=0;
-			int x=0;
-
-
-	int m = n/2;
-	int Izq_MAS = MaxArraySum(arr,m);
-	int Der_MAS = MaxArraySum(arr+m,n-m);
-	int SumaIzq = INT_MIN;
-	int SumaDer = INT_MIN;
+int rutai;
+int rutaf;
+int summax(int arr[],int tam){
+	int res=-1000;
 	int sum=0;
-int i;
-int a=0;
-	for( i=m;i < n; i++)
-	{
-		sum += arr[i];
-		SumaDer = max(SumaDer,sum);
-		almacen[a]=i;
-		a++;
+	for (int i = 0; i < tam; ++i) {
+		sum=sum+arr[i];
+		if (sum<0) {
+			sum=0;
+			rutai=i+1;
+		}
+
+		if (sum>res ) {res=sum;
+		rutaf=i+1; }
 
 	}
-		cout<<i<<" ";
-	cout<<endl;
-	sum = 0;
-
-	int j;
-	for( j= (m-1);j >= 0; j--)
-	{
-		sum += arr[j];
-		SumaIzq = max(SumaIzq,sum);
-	}
-
-
-	for (int i = 0; i <9; i++){
-
-
-							if(almacen[i] > mayor){
-
-								mayor = almacen[i];
-
-								x = i;
-
-							}
-
-						}
-		cout<<"La mejor parte de la ruta 1 es entre las calles" << x<<" y";
-
-
-
-
-	int t = max(Izq_MAS,Der_MAS);
-	return max(t,SumaIzq+SumaDer);
+	return res;
 }
+int main(){
 
+int calles;
+int rutas;
+cin>>rutas;
 
-int main()
-{
+for (int var = 0; var < rutas; ++var) {
 
+cin>>calles;
 
+	int arr[calles-1];
+	for (int i = 0; i < calles-1; ++i) {
+		cin>>arr[i];
+	}
+int resultado=summax(arr,calles-1);
+	cout<<" La mejor parte de la ruta "<<var+1<<"  es entre las calles:"<<rutai+1<<" y "<<rutaf+1<<"es"<<resultado<<endl;
 
-	int arr[] = {4,-5,4,-3,4,4,-4,4,5};
-//	int arr[]={1,2,3,3,4,2};
-
-
-
-	cout<<"suma maxima: "<<endl;
-		cout<<MaxArraySum(arr,6)<<"\n";
-
-
-
-
-		return 0;
-
-
-//		cout<<"La mejor parte de la ruta 1 es entre las calles"  2 y 3
-//		cout<<La mejor parte de la ruta 2 es entre las calles 3 y 9
-//		La ruta 3 no tiene calles interesantes
-//int tam;
-//	cout<<"ingrese tamano: ";cin>>tam;
-//
-//    	for (int i = 0; i <tam; i++) {
-//
-//    		cout<<"ingrese elementos : ";cin>>array[i];
-//    		}
-
-
-
+	}
 }
 
 
